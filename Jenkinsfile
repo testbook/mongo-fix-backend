@@ -13,7 +13,7 @@ node {
                                      name: 'Path')]
    
         String ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
-        String app_workspace="/root/Test/env.Path"
+        String app_workspace="/root/Test"
         
             if(env.environment == "alpha-elk-new"){
                
@@ -23,7 +23,7 @@ node {
                 }
 
                 stage ('Add/Replace Configs and restart service'){
-                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace} && sudo bash ${app_workspace} \" ")
+                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace} \" ")
                 }
             }
 
