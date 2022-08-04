@@ -1,15 +1,17 @@
 properties([
    
-    env.Path = input message: 'Please enter the Path along with file name',
-                 parameters: [string(defaultValue: '',
-                                     description: '',
-                                     name: 'Path')]
-    parameters([
+   parameters([
         choice(choices: 'alpha-elk-new\nprod-elk', description: 'Select the environment that you want to deploy the code', name: 'environment')
     ])
 ])
 
 node {
+
+         env.Path = input message: 'Please enter the Path along with file name',
+                 parameters: [string(defaultValue: '',
+                                     description: '',
+                                     name: 'Path')]
+   
         String ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
         String app_workspace="/root/Test/env.Path"
         
