@@ -1,11 +1,12 @@
 properties([
     parameters([
-        choice(choices: 'tb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment')
-    ])
-  
-   parameters{ text(name: 'Path', 
+        choice(choices: 'tb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment'),
+        text(name: 'Path', 
                  defaultValue: '', 
-                 description: 'Enter the path of the script file')    
+                 description: 'Enter the path of the script file') 
+ ])
+  
+   parameters{    
             }
 ])
 
