@@ -1,43 +1,33 @@
 properties([
-   
-   parameters([
-        choice(choices: 'alpha-elk-new\nprod-elk', description: 'Select the environment that you want to deploy the code', name: 'environment')
+    parameters([
+        choice(choices: 'tb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment')
     ])
+  
+   parameters{ text(name: 'Path', 
+                 defaultValue: '', 
+                 description: 'Enter the path of the script file')    
+            }
 ])
 
 node {
+     
+      String ssh_config=""
+      if(env.enviroment == 'tb-alpha-api-testbook'){
+             ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command" 
+      }
+      else {
+             ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
+      } 
+      String app_workspace="/root/" 
 
-         env.Path = input message: 'Please enter the Path along with file name',
-                 parameters: [string(defaultValue: '',
-                                     description: '',
-                                     name: 'Path')]
-   
-        String ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
-        String app_workspace="/root/Test"
-        
-            if(env.environment == "alpha-elk-new"){
-               
-                stage ('Get Latest Code'){
+       
+         stage ('Get Latest Code'){
                     sh ("echo \"Getting Code on ${env.environment} environment\"")
                     sh ("${ssh_config} \"sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
-                }
+                }       
 
-                stage ('Add/Replace Configs and restart service'){
-                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace} \" ")
-                }
-            }
-
-            if(env.environment == "prod-elk"){
-                input message: 'Chote terko sahi me production pe deploy karna hai?'
-                echo "Going forward with produciton deployment"
-
-                stage ('Get Latest Code'){
-                    sh ("echo \"Getting Code on ${env.environment} environment\"")
-                    sh ("${ssh_config} \"sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
-                }
-
-                stage ('Add/Replace Configs and restart service'){
-                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace} && sudo bash ${app_workspace} \" ")
-                }
-            }
+          stage ('Run Service'){
+                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
+      	  }
 }
+
