@@ -6,8 +6,6 @@ properties([
                  description: 'Enter the path of the script file') 
  ])
   
-   parameters{    
-            }
 ])
 
 node {
