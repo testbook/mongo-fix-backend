@@ -20,12 +20,12 @@ node {
       } 
       String app_workspace="/root/Test" 
                  
- 		stage ('Get Latest Code'){
-                    sh ("echo \"Getting Code on ${env.environment} environment\"")
-                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
-                }
+      stage ('Get Latest Code'){
+            sh ("echo \"Getting Code on ${env.environment} environment\"")
+            sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
+      }
        
-                  stage ('Run Service'){
-                    sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
-      	 	 }
+      stage ('Run Service'){
+            sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
+      }
 }
