@@ -21,7 +21,7 @@ node {
 
        
          stage ('Get Latest Code'){
-                    sh ("echo \"Getting Code on ${env.environment} environment\"")
+                    sh ("echo \"Getting Code on ${env.environment} in ${env.BRANCH_NAME} environment\"")
                     sh ("${ssh_config} \"sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
                 }       
 
