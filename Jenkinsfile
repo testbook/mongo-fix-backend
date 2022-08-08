@@ -17,7 +17,7 @@ node {
       else {
              ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
       } 
-      String app_workspace="/root" 
+      String app_workspace="/root/Test" 
 
        
          stage ('Get Latest Code'){
