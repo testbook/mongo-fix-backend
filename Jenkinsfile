@@ -11,7 +11,7 @@ properties([
 node {
      
       String ssh_config=""
-      if(env.enviroment == "tb-alpha-api-testbook"){
+      if(env.environment == "tb-alpha-api-testbook"){
              ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command" 
       }
       else {
