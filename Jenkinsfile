@@ -12,7 +12,7 @@ node {
      
       String ssh_config=""
       if(env.environment == "tb-alpha-api-testbook"){
-             ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command" 
+             ssh_config="gcloud compute ssh " + env.environment 
       }
       else {
              ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
