@@ -32,6 +32,20 @@ properties([
       //}
 //}
 
+node {
+
+String ssh_config=""
+          if(env.environment == "tb-alpha-api-testbook"){
+              ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
+            }
+          else {
+             ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
+                   sh("echo ${ssh_config}")
+            }
+          String app_workspace="/root/mongo-fix-backend"
+
+}
+
 
 pipeline {
   agent any
@@ -42,17 +56,7 @@ pipeline {
           env.PATH = input message: 'Please enter the full Path',
                              parameters: [string(defaultValue: '',
                                           description: '',
-                                          name: 'Path')]
-        
-           String ssh_config=""
-          if(env.environment == "tb-alpha-api-testbook"){
-              ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
-            }
-          else {
-             ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
-                   sh("echo ${ssh_config}")
-            }
-          String app_workspace="/root/mongo-fix-backend"
+                                          name: 'Path')]   
       }
         echo "PATH: ${env.Path}"
      }
