@@ -1,9 +1,9 @@
 properties([
     parameters([
-        choice(choices: 'alpha-elk-new\ntb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment'),
-        text(name: 'Path', 
-                 defaultValue: '', 
-                 description: 'Enter the path of the script file') 
+        choice(choices: 'alpha-elk-new\ntb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment')
+        //text(name: 'Path', 
+        //         defaultValue: '', 
+        //         description: 'Enter the path of the script file') 
  ])
   
 ])
@@ -21,9 +21,28 @@ node {
       //	     sh("echo ${ssh_config}")
       //} 
       //String app_workspace="/root/mongo-fix-backend"
-      //sh ("echo ${ssh_config}")           
+      //sh ("echo ${ssh_config}")
+      stage("Interactive_Input") {
+            steps {
+                script {
+
+                    // Variables for input
+                    def inputTest
+                    def userInput = input(
+                            id: 'userInput', message: 'Enter path of test reports:?',
+                            parameters: [
+
+                                    string(defaultValue: 'None',
+                                            description: 'Path of config file',
+                                            name: 'Config')
+                               ])
+                     inputTest = userInput.Config?:''
+                     echo ${inputTest}
+                     
+        }}}
+           
       //stage ('Get Latest Code'){
-            sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${env.Path}\"")
+            sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${inputTest}\"")
            // sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
       //}
        
