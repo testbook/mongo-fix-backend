@@ -47,13 +47,9 @@ pipeline {
                              parameters: [string(defaultValue: '',
                                           description: '',
                                           name: 'Username')]
-          env.PASSWORD = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'Password')]
         }
         echo "Username: ${env.USERNAME}"
-        echo "Password: ${env.PASSWORD}"
+        gcloud compute ssh ${env.USERNAME} --zone asia-south1-c --internal-ip --command "sudo chmod +x /home/testbook/test.sh"
       }
     }
   }
