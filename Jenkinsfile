@@ -51,7 +51,7 @@ String ssh_config=""
                    sh("echo ${ssh_config}")
             }
           String app_workspace="/root/mongo-fix-backend"
- 
+echo "ssh_config: ${ssh_config}" 
 stage ('GEt latest code') {
       sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${ssh_config}\"")
       sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
