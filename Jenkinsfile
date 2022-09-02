@@ -8,7 +8,6 @@ properties([
   
 ])
 
-sh("echo Testbook")
 node {
       sh("echo Testbook")
       String ssh_config=""
