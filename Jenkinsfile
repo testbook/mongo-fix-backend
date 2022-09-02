@@ -10,7 +10,7 @@ properties([
 
 node {
       //sh("echo Testbook")
-      String ssh_config="tb-alpha-api-testbook"
+      String ssh_config="gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command"
       //if(env.environment == "tb-alpha-api-testbook"){
       //       ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
       //	     sh("echo ${ssh_config}")
