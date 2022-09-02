@@ -45,6 +45,8 @@ pipeline {
                                           name: 'Path')]
         }
         echo "PATH: ${env.Path}"
+}}}}
+node {
           String ssh_config=""
       	  if(env.environment == "tb-alpha-api-testbook"){
               ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
@@ -58,8 +60,4 @@ pipeline {
           sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
           sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
 
-      }
-    }
  }
-}
-
