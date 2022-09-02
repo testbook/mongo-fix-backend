@@ -1,14 +1,14 @@
-properties([
-    parameters([
-        choice(choices: 'alpha-elk-new\ntb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment')
+//properties([
+//    parameters([
+//        choice(choices: 'alpha-elk-new\ntb-alpha-api-testbook\ncore\nengage\ntests', description: 'Select the environment that you want to deploy the script', name: 'environment')
         //text(name: 'Path', 
         //         defaultValue: '', 
         //         description: 'Enter the path of the script file') 
- ])
+// ])
   
-])
+//])
 
-node {
+//node {
       //sh("echo Testbook")
       //String ssh_config="gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command"
       //if(env.environment == "tb-alpha-api-testbook"){
@@ -22,31 +22,40 @@ node {
       //} 
       //String app_workspace="/root/mongo-fix-backend"
       //sh ("echo ${ssh_config}")
-      stage("Interactive_Input") {
-            steps {
-                script {
-
-                    // Variables for input
-                    def inputTest
-                    def userInput = input(
-                            id: 'userInput', message: 'Enter path of test reports:?',
-                            parameters: [
-
-                                    string(defaultValue: 'None',
-                                            description: 'Path of config file',
-                                            name: 'Config')
-                               ])
-                     inputTest = userInput.Config?:''
-                     echo ${inputTest}
-                     
-        }}}
            
+
+
+
       //stage ('Get Latest Code'){
-            sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${inputTest}\"")
+          //  sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${inputTest}\"")
            // sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
       //}
        
       //stage ('Run Service'){
       //      sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
       //}
+//}
+
+
+pipeline {
+  agent any
+  stages {
+    stage ("Prompt for input") {
+      steps {
+        script {
+          env.USERNAME = input message: 'Please enter the username',
+                             parameters: [string(defaultValue: '',
+                                          description: '',
+                                          name: 'Username')]
+          env.PASSWORD = input message: 'Please enter the password',
+                             parameters: [password(defaultValue: '',
+                                          description: '',
+                                          name: 'Password')]
+        }
+        echo "Username: ${env.USERNAME}"
+        echo "Password: ${env.PASSWORD}"
+      }
+    }
+  }
 }
+
