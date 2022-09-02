@@ -74,6 +74,6 @@ pipeline {
     stage ('Run Service'){
             sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
      }
- }
+// }
 }
 
