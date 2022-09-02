@@ -35,21 +35,27 @@ properties([
 
 pipeline {
   agent any
-  stages {
-    stage ("Prompt for input") {
-      steps {
-        script {
+//  stages {
+//    stage ("Prompt for input") {
+//      steps {
+//        script {
+//          env.PATH = input message: 'Please enter the full Path',
+//                             parameters: [string(defaultValue: '',
+//                                          description: '',
+//                                          name: 'Path')]
+//        }
+//        echo "PATH: ${env.Path}"
+//      }
+//    }
+
+     script {
           env.PATH = input message: 'Please enter the full Path',
                              parameters: [string(defaultValue: '',
                                           description: '',
                                           name: 'Path')]
         }
-        echo "PATH: ${env.Path}"
-      }
-    }
-
-    stage ('ssh in server') {
-     
+        echo "PATH: ${env.Path}"    
+ 
       String ssh_config=""
       if(env.environment == "tb-alpha-api-testbook"){
              ssh_config="gcloud compute ssh " + env.environment + " --zone asia-south1-c --internal-ip --command"
@@ -60,7 +66,6 @@ pipeline {
       }
       String app_workspace="/root/mongo-fix-backend"     
  
-     }
     stage ('Get Latest Code'){
             sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${ssh_config}\"")
             sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
