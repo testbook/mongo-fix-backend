@@ -49,7 +49,7 @@ pipeline {
                                           name: 'Username')]
         }
         echo "Username: ${env.USERNAME}"
-        gcloud compute ssh ${env.USERNAME} --zone asia-south1-c --internal-ip --command "sudo chmod +x /home/testbook/test.sh"
+        sh ("gcloud compute ssh ${env.USERNAME} --zone asia-south1-c --internal-ip --command \"sudo chmod +x /home/testbook/test.sh\""
       }
     }
   }
