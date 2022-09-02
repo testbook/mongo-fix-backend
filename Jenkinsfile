@@ -35,16 +35,12 @@ properties([
 node {
 
 stage ("Prompt for input") {
-      steps {
-        script {
           env.PATH = input message: 'Please enter the full Path',
                              parameters: [string(defaultValue: '',
                                           description: '',
                                           name: 'Path')]
         }
         echo "PATH: ${env.Path}"
-     }
-    }
 
 String ssh_config=""
           if(env.environment == "tb-alpha-api-testbook"){
