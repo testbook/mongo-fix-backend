@@ -49,7 +49,7 @@ String ssh_config=""
 
 pipeline {
   agent any
-  stages {
+//  stages {
     stage ("Prompt for input") {
       steps {
         script {
@@ -62,8 +62,11 @@ pipeline {
      }
     }
     stage ('GEt latest code') {
+
+
           sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${ssh_config}\"")
           sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME} \" ")
           sh ("${ssh_config} \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path} \" ")
     }
-}}
+//}
+}
