@@ -54,8 +54,8 @@ String ssh_config=""
 echo "ssh_config: ${ssh_config}" 
 //stage ('GEt latest code') {
       echo "Getting Code on ${env.environment} environment and the ssh_config is ${ssh_config}"
-      sh ( "gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command \"sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME}\"" )
-      sh ( "gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command \"sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path}\"" )
+      gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command "sudo chmod +x ${app_workspace}/get_latest_code.sh && sudo bash ${app_workspace}/get_latest_code.sh ${env.BRANCH_NAME}"
+      gcloud compute ssh tb-alpha-api-testbook --zone asia-south1-c --internal-ip --command "sudo chmod +x ${app_workspace}/${env.Path} && sudo bash ${app_workspace}/${env.Path}"
 //    }
 
 }
