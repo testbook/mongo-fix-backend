@@ -20,7 +20,7 @@ node {
       //       ssh_config="gcloud compute ssh tb-prod-mongo-" + env.environment + "-primary-new-01 --zone asia-south1-c --internal-ip --command"
       //	     sh("echo ${ssh_config}")
       //} 
-      String app_workspace="/root/Test" 
+      String app_workspace="/root/mongo-fix-backend"
       //sh ("echo ${ssh_config}")           
       stage ('Get Latest Code'){
             sh ("echo \"Getting Code on ${env.environment} environment and the ssh_config is ${ssh_config}\"")
